@@ -1,6 +1,8 @@
 # manual
 mongo_start.sh
 scraping_practice.ipynb
+app2.py
+scraping2.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

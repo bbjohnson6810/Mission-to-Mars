@@ -1,4 +1,6 @@
 ## web app to display Mars info
+# to run, in terminal: python app.py
+# if port is occuppied, in terminal: lsof -i tcp:5000, then: kill -9 <programID>
 
 from flask import Flask, render_template, redirect, url_for
 from flask_pymongo import PyMongo
