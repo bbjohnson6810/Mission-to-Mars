@@ -36,8 +36,8 @@ def scrape_all():
 def mars_news(browser):
 
     # Visit the mars nasa news site
-    # url = 'https://redplanetscience.com'
-    url = 'https://data-class-mars.s3.amazonaws.com/Mars/index.html'
+    url = 'https://redplanetscience.com'
+    # url = 'https://data-class-mars.s3.amazonaws.com/Mars/index.html'
     browser.visit(url)
 
     # search for elements with tag 'div' and attribute 'list_text'

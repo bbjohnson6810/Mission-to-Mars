@@ -3,6 +3,9 @@ mongo_start.sh
 scraping_practice.ipynb
 app2.py
 scraping2.py
+module_copies/
+module_copies/*
+performance notes.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

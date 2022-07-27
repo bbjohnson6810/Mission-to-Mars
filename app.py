@@ -6,24 +6,24 @@ from flask import Flask, render_template, redirect, url_for
 from flask_pymongo import PyMongo
 import scraping
 
-# setup the app
+# set up the app
 app = Flask(__name__)
 
-# setup a mongo connection - connect using a uniform resource identifier
+# set up a mongo connection - connect using a uniform resource identifier
 # app reaches mongo thru the localhost server using port 27017 and db named "mars_app"
 app.config["MONGO_URI"] = "mongodb://localhost:27017/mars_app" 
 mongo = PyMongo(app)
 
 
 # define the home route
-app.route("/")
+@app.route("/")
 def index():
     mars = mongo.db.mars.find_one() # use PyMongo to find the "Mars" collection in the database
     return render_template("index.html", mars=mars) # return the HTML template in index.html file, use the "mars" collection in MongoDB
 
 
 # scraping route
-app.route("/scrape")
+@app.route("/scrape")
 def scrape():
     mars = mongo.db.mars # new variable to hold the database
     mars_data = scraping.scrape_all() # scrape new data using scraping.py
@@ -34,4 +34,4 @@ def scrape():
 
 # run the app
 if __name__ == "__main__":
-   app.run()
+   app.run(debug=True)
