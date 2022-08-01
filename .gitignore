@@ -6,6 +6,7 @@ scraping2.py
 module_copies/
 module_copies/*
 performance notes.txt
+portfolio/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -11,6 +11,7 @@ app = Flask(__name__)
 
 # set up a mongo connection - connect using a uniform resource identifier
 # app reaches mongo thru the localhost server using port 27017 and db named "mars_app"
+# https://stackabuse.com/integrating-mongodb-with-flask-using-flask-pymongo/
 app.config["MONGO_URI"] = "mongodb://localhost:27017/mars_app" 
 mongo = PyMongo(app)
 

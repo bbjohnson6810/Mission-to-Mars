@@ -1,4 +1,4 @@
-## functions to scrape Mars data for a custom    web application
+## functions to scrape Mars data for a custom web application
 # run via app.py
 # to run, in terminal: python app.py
 # if port is occuppied, in terminal: lsof -i tcp:5000, then: kill -9 <programID>
@@ -24,7 +24,8 @@ def scrape_all():
         "news_paragraph": news_paragraph,
         "featured_image": featured_image(browser),
         "facts": mars_facts(),
-        "last_modified": dt.datetime.now()
+        "last_modified": dt.datetime.now(),
+        "hemispheres": get_hemispheres(browser)
     }
     
     # stop webdriver and return data
@@ -111,6 +112,27 @@ def mars_facts():
 
     # pandas: convert df to html
     return df.to_html()
+
+
+# function to get hemisphere photos
+def get_hemispheres(browser):
+
+    url = 'https://marshemispheres.com/'
+    browser.visit(url)
+
+    hemisphere_image_urls = []
+
+    for i in range(4):
+        
+        hemispheres = {}
+        browser.find_by_tag('h3')[i].click()
+        hemi_url = browser.links.find_by_text('Sample').first 
+        hemispheres['img_url'] = hemi_url['href'] 
+        hemispheres['title'] = browser.find_by_css('h2.title').text
+        hemisphere_image_urls.append(hemispheres)
+        browser.back()
+
+    return hemisphere_image_urls
 
 
 if __name__ == "__main__":

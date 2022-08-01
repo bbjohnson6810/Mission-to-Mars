@@ -15,41 +15,65 @@
 
   <!-- Mars News -->
   <div class="container"> <!-- creates a container to hold the webpage grid -->
-    <div class="jumbotron text-center"> <!-- bootstrap jumbotron component to use as a header -->
-      <h1>Mission to Mars</h1> <!-- header text (1st-level header) -->
-      <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a></p> 
-          <!-- header as bootstrap button w/ primary color, L size, links to /scrape -->
-    </div>
-  </div>
+      <div class="jumbotron text-center"> <!-- bootstrap jumbotron component to use as a header -->
+        <h1>Mission to Mars</h1> <!-- header text (1st-level header) -->
+        <p><a class="btn btn-primary btn-lg btn-danger" href="/scrape" role="button">Scrape New Data</a></p> 
+            <!-- header as bootstrap button w/ primary color, L size, links to /scrape -->
+            <!-- Deliverable 3: altered button color -->
+      </div>
 
-  <div class="row" id="mars-news"> <!-- row class defines a grid with all elements aligned horizontally -->
-    <div class="col-md-12"> <!-- 12 columns scaled to a midsized desktop display -->
-      <div class="media"> <!-- display content as media -->
-        <div class="media-body"> <!-- insert media content within the body -->
-          <h2>Latest Mars News</h2> <!-- 2nd-level header for the media-body -->
-          <h4 class="media-heading">{{mars.news_title}}</h4> <!-- header: document.variable_name: 'news_title' variable stored in the 'mars' Mongo db -->
-                                                             <!-- format title w/ 'media' class styling -->
-          <p>{{ mars.news_paragraph }}</p> <!-- paragraph text from 'mars' db in app.py -->
+    <div class="row" id="mars-news"> <!-- row class defines a grid with all elements aligned horizontally -->
+      <div class="col-xs-18 col-md-12"> <!-- 12 columns scaled to a midsized desktop display -->
+        <div class="media"> <!-- display content as media -->
+          <div class="media-body"> <!-- insert media content within the body -->
+            <h2>Latest Mars News</h2> <!-- 2nd-level header for the media-body -->
+            <h4 class="media-heading">{{mars.news_title}}</h4> <!-- header: document.variable_name: 'news_title' variable stored in the 'mars' Mongo db -->
+                                                              <!-- format title w/ 'media' class styling -->
+            <p>{{ mars.news_paragraph }}</p> <!-- paragraph text from 'mars' db in app.py -->
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Section for Featured Image and Facts table -->
-  <!-- Featured Image -->
-  <div class="row" id="mars-featured-image">
-    <div class="col-md-8"> <!-- 8 columns so the image doesn't span the whole screen -->
-      <h2>Featured Mars Image</h2> <!-- header text -->
-      <img src="{{ mars.featured_image }}" class="img-responsive" alt="Responsive image"/> <!-- image sourced from mars db-->
-    </div>
-    <!-- Mars Facts --> 
-    <div class="col-md-4"> <!-- table fills 4 columns to fill remaining screen -->
-      <div class="row" id="mars-facts">
-        <h4>Mars Facts</h4>
-        {{ mars.facts | safe }} <!-- reference the 'facts' table in mars db, tell the browser that it's not malicious -->
+    <!-- Section for Featured Image and Facts table -->
+    <!-- Featured Image -->
+    <div class="row" id="mars-featured-image">
+      <div class="col-xs-12 col-md-8"> <!-- 8 columns so the image doesn't span the whole screen -->
+        <h2>Featured Mars Image</h2> <!-- header text -->
+        <!-- Deliverable 3: altered image (rounded edges) -->
+        <img class="img-rounded" 
+          src="{{mars.featured_image | default('static/images/error.png', true) }}" 
+          class="img-responsive" alt="Responsive image"
+          /> <!-- image sourced from mars db-->
       </div>
+      <!-- Mars Facts --> 
+      <div class="col-xs-6 col-md-4"> <!-- table fills 4 columns to fill remaining screen -->
+        <div class="row" id="mars-facts">
+          <h4>Mars Facts</h4>
+          {{ mars.facts | safe }} <!-- reference the 'facts' table in mars db, tell the browser that it's not malicious -->
+        </div>
+      </div>
+    
     </div>
-   
+
+    <!-- Section for Mars Hemispheres -->
+    <div class="row" id="mars-hemispheres">
+      <div class="page-header">
+        <h2 class="text-center">Mars Hemispheres</h2>
+      </div>
+    
+      {% for hemisphere in mars.hemispheres %}
+      <div class="col-xs-9 col-md-6">
+        <div class="thumbnail">
+          <img src="{{hemisphere.img_url | default('static/images/error.png', true)}}" alt="...">
+          <div class="caption">
+            <h3>{{hemisphere.title}}</h3>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
   </div>
 
 </body>
